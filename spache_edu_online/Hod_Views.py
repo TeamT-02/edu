@@ -211,7 +211,6 @@ def DELETE_COURSE(request, id):
     course = Course.objects.get(id=id)
     course.delete()
     messages.success(request, 'Course are Successfully Deleted')
-
     return redirect('view_course')
 
 

@@ -67,9 +67,18 @@ urlpatterns = [
     path('Hod/Session/Edit/<str:id>', Hod_Views.EDIT_SESSION, name='edit_session'),
     path('Hod/Session/Update', Hod_Views.UPDATE_SESSION, name='update_session'),
     path('Hod/Session/Delete/<str:id>', Hod_Views.DELETE_SESSION, name='delete_session'),
+    path('Hod/Staff/Send_Notification', Hod_Views.STAFF_SEND_NOTIFICATION, name='staff_send_notification'),
+    path('Hod/Staff/save_notification', Hod_Views.SAVE_STAFF_NOTIFICATION, name='save_staff_notification'),
+    path('Hod/Staff/Leave_view', Hod_Views.Staff_Leave_view, name='staff_leave_view'),
+    path('Hod/Staff/approve_leave/<str:id>', Hod_Views.STAFF_APPROVE_LEAVE, name='staff_approve_leave'),
+    path('Hod/Staff/disapprove_leave/<str:id>', Hod_Views.STAFF_DISAPPROVE_LEAVE, name='staff_disapprove_leave'),
 
     # Staff panel
-    path('Staff/Home', Staff_Views.HOME, name='staff_home')
+    path('Staff/Home', Staff_Views.HOME, name='staff_home'),
+    path('Staff/Notifications', Staff_Views.NOTIFICATIONS, name='notifications'),
+    path('Staff/mark_as_done/<str:status>', Staff_Views.STAFF_NOTIFICATION_MARK_AS_DONE,name='staff_notification_mark_as_done'),
+    path('Staff/Apply_leave', Staff_Views.STAFF_APPLY_LEAVE, name='staff_apply_leave'),
+    path('Staff/Apply_leave_save', Staff_Views.STAFF_APPLY_LEAVE_SAVE, name='staff_apply_leave_save'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

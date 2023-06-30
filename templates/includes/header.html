@@ -104,7 +104,7 @@
                     <span class="user-img"><img class="rounded-circle" src="{% static 'assets/avatar.jpg' %}"
                                                 width="31" alt="Ryan Taylor"></span>
                 {% else %}
-                    <span class="user-img"><img class="rounded-circle" src="/{{ user.profile_pic }}" width="31"
+                    <span class="user-img"><img class="rounded-circle" src="/{{ user.profile_pic }}" height="40" width="31"
                                                 alt="Ryan Taylor"></span>
                 {% endif %}
             </a>
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <a class="dropdown-item" href="{% url 'profile' %}">My Profile Update</a>
-                <a class="dropdown-item" href="inbox.html">Inbox</a>
+                <a class="dropdown-item" href="{% url 'home' %}">website</a>
                 <a class="dropdown-item" href="{% url 'dologout' %}">Logout</a>
             </div>
         </li>

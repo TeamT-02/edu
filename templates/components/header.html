@@ -29,28 +29,28 @@
                 <ul class="dropdown-menu dropdown-menu-md bg-primary rounded py-4 mt-4"
                     aria-labelledby="navbarVerticalMenu">
                     {% for cat in category %}
-                    <li class="dropdown-item dropright">
-                        <a class="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                            <div class="me-4 d-flex text-white icon-xs">
-                                <!-- Icon -->
+                        <li class="dropdown-item dropright">
+                            <a class="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
                                 <div class="me-4 d-flex text-white icon-xs">
-                                    <i class="{{ cat.icon }}"></i>
+                                    <!-- Icon -->
+                                    <div class="me-4 d-flex text-white icon-xs">
+                                        <i class="{{ cat.icon }}"></i>
+                                    </div>
+
                                 </div>
+                                {{ cat.name }}
+                            </a>
 
+                            <div class="dropdown-menu ps-3 top-0 pe-0 py-0 shadow-none bg-transparent">
+                                <div class="dropdown-menu-md bg-primary rounded dropdown-menu-inner">
+                                    {% for i in cat.course_set.all %}
+                                        <a class="dropdown-item" href="{{ i.get_absolute_url }}">
+                                            {{ i.title }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
                             </div>
-                            {{ cat.name }}
-                        </a>
-
-                        <div class="dropdown-menu ps-3 top-0 pe-0 py-0 shadow-none bg-transparent">
-                            <div class="dropdown-menu-md bg-primary rounded dropdown-menu-inner">
-                                {% for i in cat.course_set.all %}
-                                <a class="dropdown-item" href="#">
-                                    {{ i.title }}
-                                </a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </li>
+                        </li>
                     {% endfor %}
                 </ul>
             </li>
@@ -94,7 +94,7 @@
 
                 </li>
                 <li class="nav-item dropdown dropdown-full-width">
-                    <a class="nav-link text-gigas" href="">
+                    <a class="nav-link text-gigas" href="{% url 'my_course' %}">
                         My Courses
                     </a>
 
@@ -103,13 +103,36 @@
                     <li class="nav-item dropdown border-0 px-1 px-md-3">
                         <a class="nav-link dropdown-toggle" id="user" data-bs-toggle="dropdown" href="#"
                            aria-haspopup="true" aria-expanded="false">
-                            Welcome , {{ user.username }}
+                            {{ user.username }}
                         </a>
+                        <div class="avatar avatar-sm">
 
+                        </div>
                         <ul class="dropdown-menu border-xl shadow-none" aria-labelledby="user">
                             <li class="dropdown-item">
+                                <a class="dropdown-link" href="">
+                                    {% if user.profile_pic == "" %}
+                                        <img style="width: 4rem;" src="{% static 'assets/avatar.jpg' %}"
+                                             alt="User Image"
+                                             class="avatar-img rounded-circle">
+                                    {% else %}
+                                        <img style="width: 4rem;" src="/{{ user.profile_pic }}" alt="User Image"
+                                             class="avatar-img rounded-circle">
+                                    {% endif %}
+                                    <li>
+                                        {% if user.user_type == '1' %}
+                                            <h5 style="margin-left: 6rem;margin-top: -2rem;position: absolute;" class="text-muted mb-0">Admin</h5>
+                                        {% elif user.user_type == '2' %}
+                                            <p style="margin-left: 6rem;margin-top: -2rem;position: absolute;" class="text-muted mb-0">O'qtuvchi</p>
+                                        {% else %}
+                                            <p style="margin-left: 6rem;margin-top: -2rem;position: absolute;" class="text-muted mb-0">Talaba</p>
+                                        {% endif %}
+                                    </li>
+                                </a>
+                            </li>
+                            <li class="dropdown-item">
                                 <a class="dropdown-link active" href="{% url 'profile' %}">
-                                    Account
+                                    profile
                                 </a>
                             </li>
                             <li class="dropdown-item">
@@ -118,18 +141,25 @@
                                 </a>
                             </li>
                             <li class="dropdown-item">
-                                <a href="{% url 'logout' %}" class="dropdown-link">
+                                <a href="{% url 'dologout' %}" class="dropdown-link">
                                     Logout
                                 </a>
                             </li>
                         </ul>
                     </li>
+                    <div class="user-header">
+
+                        <div class="user-text">
+                            {#                            <a class="nav-link dropdown-toggle" id="user" data-bs-toggle="dropdown" href="#"#}
+                            {#                               aria-haspopup="true" aria-expanded="false">#}
+                            {#                                Welcome , {{ user.first_name }}&nbsp;{{ user.last_name }}#}
+                            {#                            </a>#}
+
+                        </div>
+                    </div>
                 {% elif user.is_authenticated %}
                     <li class="nav-item dropdown border-0 px-1 px-md-3">
-                        <a class="nav-link dropdown-toggle" id="user" data-bs-toggle="dropdown" href="#"
-                           aria-haspopup="true" aria-expanded="false">
-                            Welcome , {{ user.first_name }}&nbsp;{{ user.last_name }}
-                        </a>
+
 
                         <ul class="dropdown-menu border-xl shadow-none" aria-labelledby="user">
                             <li class="dropdown-item">
@@ -143,7 +173,7 @@
                                 </a>
                             </li>
                             <li class="dropdown-item">
-                                <a href="{% url 'logout' %}" class="dropdown-link">
+                                <a href="{% url 'dologout' %}" class="dropdown-link">
                                     Logout
                                 </a>
                             </li>
@@ -214,7 +244,8 @@
 
                                     </button>
                                 </div>
-                                <input class="form-control form-control-sm border-0 ps-0" type="search" placeholder="What do you want to learn ?" aria-label="Search" name="query">
+                                <input class="form-control form-control-sm border-0 ps-0" type="search"
+                                       placeholder="What do you want to learn ?" aria-label="Search" name="query">
                             </div>
                         </form>
                     </div>

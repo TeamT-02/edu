@@ -1,0 +1,16 @@
+{% extends '../skola/template/../base.html' %}
+{% block title %}{{ course.title }}{% endblock %}
+{% block content %}
+    <h1>{{ video.Name_course }}</h1>
+    <video style="    margin-left: 20rem;
+    width: 43rem;" src="{{ video.Course_vidio.url }}" controls type="video/mp4" >
+{#        <source >#}
+    </video>
+{#    {% for foo in video1 %}#}
+{#        <video width="320" height="240" controls>#}
+{#            <source src="{{ foo.course_video.id }}" type="video/mp4">#}
+{#            Your browser does not support the video tag.#}
+{#        </video>#}
+{#    {% endfor %}#}
+
+{% endblock %}
